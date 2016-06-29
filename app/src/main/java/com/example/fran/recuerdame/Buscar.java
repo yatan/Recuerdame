@@ -131,7 +131,13 @@ public class Buscar extends AppCompatActivity {
                             //mTextView.setText(parsejar(response).toString());
                             ListView llista = (ListView) findViewById(R.id.lista_result);
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(Buscar.this, android.R.layout.simple_list_item_1, parsejar(response));
-                            llista.setAdapter(adapter);
+
+                            ArrayList<String> tmp = parsejar(response);
+
+                            String[] stockArr = new String[tmp.size()];
+                            stockArr = tmp.toArray(stockArr);
+
+                            llista.setAdapter(new PelisBuscador(getBaseContext(), stockArr ));
                             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                         }
                     }, new Response.ErrorListener() {

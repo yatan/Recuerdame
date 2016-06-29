@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         ListView llista = (ListView) findViewById(R.id.llista);
         String[] values = new String[] { "Peli1", "Peli2", "Peli", "Peli", "Peli"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
-        llista.setAdapter(adapter);
+        llista.setAdapter(new PelisAdaptor(this, values));
     }
 
     @Override
