@@ -2,6 +2,8 @@ package com.example.fran.recuerdame;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -13,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +35,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ListView llista = (ListView) findViewById(R.id.llista);
-        String[] values = new String[] { "Peli1", "Peli2", "Peli", "Peli", "Peli"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
-        llista.setAdapter(new PelisAdaptor(this, values));
+
+        DatosSQLiteHelper datos = new DatosSQLiteHelper(this, "baseDB", null, 1);
+        SQLiteDatabase db = datos.getReadableDatabase();
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.item_lista,
+                datos.getAllResults(db),
+                new String[] { "titulo" },
+                new int[] {R.id.textView},
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
+        //String[] values = new String[] { "Peli1", "Peli2", "Peli", "Peli", "Peli"};
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
+        //llista.setAdapter(new PelisAdaptor(this, values));
+        llista.setAdapter(adapter);
     }
 
     private Boolean exit = false;
@@ -86,5 +101,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                startActivity(new Intent(this, OpcionesActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

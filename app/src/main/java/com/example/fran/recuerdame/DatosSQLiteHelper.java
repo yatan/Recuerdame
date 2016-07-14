@@ -1,6 +1,7 @@
 package com.example.fran.recuerdame;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -20,11 +21,17 @@ public class DatosSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(sqlCreate);
+        db.execSQL("INSERT INTO Peliculas (titulo) VALUES ('Dummy 1')");
+        db.execSQL("INSERT INTO Peliculas (titulo) VALUES ('Dummy 2')");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS Peliculas");
         db.execSQL(sqlCreate);
+    }
+
+    public Cursor getAllResults(SQLiteDatabase db){
+        return db.query("Peliculas", new String[]{"_id","titulo"},null,null,null,null,"titulo");
     }
 }

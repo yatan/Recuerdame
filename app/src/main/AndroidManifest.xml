@@ -36,6 +36,11 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity
+            android:name=".OpcionesActivity"
+            android:label="Opciones"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
     </application>
 
 </manifest>
