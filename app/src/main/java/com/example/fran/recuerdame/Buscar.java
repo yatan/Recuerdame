@@ -40,6 +40,7 @@ public class Buscar extends AppCompatActivity {
     public void onBackPressed()
     {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
@@ -113,7 +114,9 @@ public class Buscar extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         //TextView textp = (TextView) findViewById(R.id.textView);
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+
             String query = intent.getStringExtra(SearchManager.QUERY);
+
             //use the query to search
 
             //textp.setText(query);
