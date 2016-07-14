@@ -3,4 +3,6 @@
     <string name="action_settings">Ajustes</string>
     <string name="menu_search">Buscar</string>
     <string name="search_hint">Buscar</string>
+    <string name="titulo">Titulo</string>
+    <string name="anyo">Año</string>
 </resources>

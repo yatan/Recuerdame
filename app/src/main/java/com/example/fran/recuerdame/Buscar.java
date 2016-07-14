@@ -9,9 +9,11 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,6 +37,7 @@ public class Buscar extends AppCompatActivity {
 
     private static final String TAG_PELIS = "results";
     private static final String TAG_TITUL = "title";
+    private static final String TAG_DATA = "release_date";
 
     @Override
     public void onBackPressed()
@@ -85,6 +88,8 @@ public class Buscar extends AppCompatActivity {
 
                 String id = c.getString(TAG_TITUL);
                 mylist.add(id);
+                String data = c.getString(TAG_DATA);
+                mylist.add(data);
                 /*
                 // Phone node is JSON Object
                 JSONObject phone = c.getJSONObject(TAG_PHONE);
@@ -132,7 +137,7 @@ public class Buscar extends AppCompatActivity {
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string..substring(0,500)
                             //mTextView.setText(parsejar(response).toString());
-                            ListView llista = (ListView) findViewById(R.id.lista_result);
+                            final ListView llista = (ListView) findViewById(R.id.lista_result);
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(Buscar.this, android.R.layout.simple_list_item_1, parsejar(response));
 
                             ArrayList<String> tmp = parsejar(response);
@@ -140,7 +145,18 @@ public class Buscar extends AppCompatActivity {
                             String[] stockArr = new String[tmp.size()];
                             stockArr = tmp.toArray(stockArr);
 
+                            llista.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                                @Override
+                                public void onItemClick (AdapterView< ? > adapter, View view, int position, long arg){
+                                    Intent in = new Intent(getApplicationContext(), ActivityInfo.class);
+                                    in.putExtra("titulo", "asdas");
+                                    startActivity(in);
+                                    //Toast.makeText(getApplicationContext(), "selected Item Name is " + llista.getItemAtPosition(position), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
                             llista.setAdapter(new PelisBuscador(getBaseContext(), stockArr ));
+
                             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                         }
                     }, new Response.ErrorListener() {

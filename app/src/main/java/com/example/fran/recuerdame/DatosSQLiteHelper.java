@@ -34,4 +34,23 @@ public class DatosSQLiteHelper extends SQLiteOpenHelper {
     public Cursor getAllResults(SQLiteDatabase db){
         return db.query("Peliculas", new String[]{"_id","titulo"},null,null,null,null,"titulo");
     }
+    public Cursor getResult(SQLiteDatabase db, int id){
+        Cursor cursor = db.query(true, "Resultados", new String[]{
+                        "_id",
+                        "alias",
+                        "fecha",
+                        "columnas",
+                        "tiempo"},
+                "_id =" + id,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        if(cursor != null)
+            cursor.moveToFirst();
+        return cursor;
+    }
+
 }

@@ -41,6 +41,11 @@
             android:label="Opciones"
             android:theme="@style/Theme.AppCompat">
         </activity>
+        <activity
+            android:name=".ActivityInfo"
+            android:label="Información de la pelicula"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
     </application>
 
 </manifest>
